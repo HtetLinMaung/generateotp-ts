@@ -1,6 +1,6 @@
 {
   "name": "generateotp-ts",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A TypeScript library for generating and verifying OTPs using JWT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,8 +9,7 @@
     "url": "https://github.com/HtetLinMaung/generateotp-ts.git"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "node lib/index.js"
+    "build": "tsc"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -22,6 +21,7 @@
     "authentication",
     "jsonwebtoken"
   ],
+  "private": "false",
   "author": "",
   "license": "ISC",
   "dependencies": {
