@@ -21,7 +21,6 @@
     "authentication",
     "jsonwebtoken"
   ],
-  "private": "false",
   "author": "",
   "license": "ISC",
   "dependencies": {
