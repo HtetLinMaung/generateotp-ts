@@ -3,7 +3,7 @@ export declare function generateOtp(digits: number, expiration?: string | number
     token: string;
 };
 export interface DecodedOtpPayload {
-    otp: number;
+    otp: string;
     iat: number;
     exp: number;
 }

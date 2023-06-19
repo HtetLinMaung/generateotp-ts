@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import bcrypt from "bcrypt";
 
 const default_secret = crypto.randomBytes(32).toString("hex");
 
@@ -14,18 +15,20 @@ export function generateOtp(
   const otp = Math.floor(min + Math.random() * (max - min + 1));
 
   // Create a payload containing the OTP
-  const payload = { otp };
+  const payload = { otp: bcrypt.hashSync(otp.toString(), 10) };
 
   // Encrypt the payload using JWT and set the desired expiration time
-  const token = jwt.sign(payload, secret || default_secret, {
-    expiresIn: expiration,
-  });
+  const token = expiration
+    ? jwt.sign(payload, secret || default_secret, {
+        expiresIn: expiration,
+      })
+    : jwt.sign(payload, secret || default_secret);
 
   return { otp, token };
 }
 
 export interface DecodedOtpPayload {
-  otp: number;
+  otp: string;
   iat: number;
   exp: number;
 }
@@ -43,7 +46,7 @@ export function verifyOtp(
     ) as DecodedOtpPayload;
 
     // Check if the user-provided OTP matches the OTP in the payload
-    if (decodedPayload.otp === otp) {
+    if (bcrypt.compareSync(otp.toString(), decodedPayload.otp)) {
       return true;
     } else {
       return false;
